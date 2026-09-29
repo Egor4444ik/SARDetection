@@ -1,0 +1,74 @@
+# configs/data.yaml — режим "только SAR"
+# Многоканальный вход: [I, Q] или [amplitude, phase, I, Q]
+
+path: /data/ATRNet-STAR          # корень датасета
+train: train.txt                 # список файлов .mat / .slc (или .npy с комплексными данными)
+val: val.txt
+test: test.txt
+
+# Число каналов
+ch: 2                            # 2 = [I, Q], 4 = [I, Q, amp, phase], 6 = quad-pol
+
+nc: 40
+names:
+  0: mini_car_ev160b
+  1: mini_car_qq3
+  2: sedan_suv_cs75
+  3: sedan_suv_h6
+  4: sedan_suv_tiggo8
+  5: sedan_mpv_gl8
+  6: sedan_mpv_odyssey
+  7: sedan_suv_haval_h6
+  8: sedan_suv_changan_cs75
+  9: sedan_suv_geely_boyue
+  10: sedan_mpv_buick_gl8
+  11: sedan_mpv_honda_odyssey
+
+  12: bus_large_klq
+  13: bus_large_yutong
+  14: bus_medium_coaster
+  15: bus_small_transit
+
+  16: truck_light_flated
+  17: truck_light_pickup
+  18: truck_medium_box
+  19: truck_medium_tanker
+  20: truck_heavy_dump
+  21: truck_heavy_shovel_loader
+  22: truck_heavy_crane
+  23: truck_heavy_mixer
+  24: truck_light_box
+  25: truck_medium_flated
+  26: truck_heavy_tractor
+
+  27: special_ambulance
+  28: special_fire_truck
+  29: special_police
+  30: special_engineering
+  31: special_road_sweeper
+  32: special_garbage_truck
+  33: special_tow_truck
+  34: special_crane_truck
+  35: special_tanker
+  36: special_utility
+  37: special_military
+  38: special_other
+  39: special_reference
+
+sar:
+  format: mat                    # mat | slc | tif
+  channels: [I, Q]               # какие компоненты извлекать
+  despeckle: refined_lee         # none | lee | refined_lee | bm3d
+  pauli: false                   # использовать Pauli-декомпозицию
+  normalize: log_percentile      # log_percentile | minmax | zscore
+  percentile_low: 1
+  percentile_high: 99
+
+# Разбиение (официальные протоколы ATRBench)
+benchmark:
+  protocol: SOC-40               # SOC-40 | SOC-50 | EOC-Scene | EOC-Depression | ...
+  seed: 42
+
+imgsz: 640
+batch: 16
+workers: 8
