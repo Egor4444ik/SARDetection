@@ -1,3 +1,10 @@
-yaml
 tifffile
 scipy
+huggingface_hub
+pandas
+pydantic_settings
+torch
+ultralytics
+matplotlib 
+pillow 
+numpy

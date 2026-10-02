@@ -2,6 +2,22 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
 import yaml
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+# src/config.py
+class Settings(BaseSettings):
+    HUGGING_FACE_TOKEN: str
+
+    REPO_ID: str = "waterdisappear/ATRNet-STAR"
+    REPO_TYPE: str = "dataset"
+    BASE_REPO_PATH: str = "Raw_data/Subset_City"
+
+    @property
+    def MANIFEST_REPO_PATH(self) -> str:
+        return f"{self.BASE_REPO_PATH}/manifest.csv"
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
 class DatasetConfig(ABC):
@@ -112,3 +128,5 @@ class ConfigFactory:
             return "sar"
         raw = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
         return "sar" if "sar" in raw else "image"
+
+settings = Settings()
